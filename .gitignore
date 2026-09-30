@@ -13,7 +13,6 @@
 
 hs_err_pid*
 replay_pid*
-<<<<<<< HEAD
 
 target/
 bin/
@@ -24,7 +23,3 @@ bin/
 
 .DS_Store
 Thumbs.db
-=======
-/target/
-/bin/
->>>>>>> 18b3df8 (Testing Commit)
