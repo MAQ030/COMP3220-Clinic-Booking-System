@@ -1,4 +1,4 @@
-// ChatGPT was used to help with ClinicApp.java.
+// We used ChatGPT to help with ClinicApp.java.
 // The code was reviewed, tested, and we understood it before submission.
 
 package clinic;
