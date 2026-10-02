@@ -27,8 +27,14 @@ public class ClinicApp extends Application {
 
         registerButton.setOnAction(event -> {
 
-            String name = nameField.getText();
-            String phone = phoneField.getText();
+            String name = nameField.getText.trim();
+            String phone = phoneField.getText.trim();
+
+            // make sure both fields are filled in
+            if (name.isEmpty() || phone.isEmpty()) {
+                patientDisplay.setText("Please enter both a name and phone number.");
+                return;
+            }
 
             Patient patient = new Patient(nextPatientId, name, phone);
 
@@ -39,6 +45,10 @@ public class ClinicApp extends Application {
                     + "\nName: " + patient.getName()
                     + "\nPhone: " + patient.getPhone()
             );
+
+            // clear fields after successful registration
+            nameField.clear();
+            phoneField.clear();
         });
 
         VBox layout = new VBox(
