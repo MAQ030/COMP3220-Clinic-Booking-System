@@ -1,8 +1,9 @@
 // We used ChatGPT to help with ClinicApp.java.
 // The code was reviewed, tested, and we understood it before submission.
 
-package clinic;
+package clinic.ui;
 
+import clinic.domain.Patient;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,8 +28,8 @@ public class ClinicApp extends Application {
 
         registerButton.setOnAction(event -> {
 
-            String name = nameField.getText.trim();
-            String phone = phoneField.getText.trim();
+            String name = nameField.getText().trim();
+            String phone = phoneField.getText().trim();
 
             // make sure both fields are filled in
             if (name.isEmpty() || phone.isEmpty()) {

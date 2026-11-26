@@ -1,7 +1,7 @@
 // We used ChatGPT to help with Patient.java.
 // The code was reviewed, tested, and we understood it before submission.
 
-package clinic;
+package clinic.domain;
 
 public class Patient {
 
