@@ -1,74 +1,74 @@
 # Clinic Appointment Booking System
 
-**COMP-3220 | Project Deliverable 1 | Group 10**
+**COMP-3220 | Project Deliverable 3 | Group 10**  
+University of Windsor, Fall 2026
 
-A small prototype for a medical clinic's appointment system. For Deliverable 1, it lets a receptionist register a patient and see the patient's information on screen.
+## Overview
 
-## Group Members
+A JavaFX desktop application for managing patient registration, appointment bookings, and doctor schedules. The system uses SQLite for persistent local storage and provides separate interfaces for patients, doctors, and receptionists.
 
-- Funmilayo, David
-- Nduhukire, Roldan
-- Qureshi, Mudasir
-- Simic, Marko
+## Team Members
 
-## Scope (PD1)
+- David Funmilayo
+- Roldan Nduhukire
+- Mudasir Qureshi
+- Marko Simic
 
-**Included**
-- Registering a patient
-- Assigning each patient an internal patient ID
-- Entering the patient's name and phone number
-- Displaying the patient's information
-- Simple JavaFX interface
+## Features
 
-**Not included yet**
-- Appointment booking and cancellation
-- Doctor schedules and doctor management
-- Login and authentication
-- Appointment history and conflict checking
-- Database or file storage (patients are kept in memory only and are lost when the app closes)
+- **Receptionist:** Register patients and doctors and configure doctor availability.
+- **Patient:** Update contact information, search for doctors, and book or cancel appointments.
+- **Doctor:** View appointment schedules within a specified date range.
+- **System:** Persistent storage, input validation, and prevention of duplicate active bookings.
 
-## Project Structure
+## Getting Started
 
-```
-src/main/java/clinic/
-├── Patient.java     # Stores a patient's ID, name, and phone number
-└── ClinicApp.java   # JavaFX window; creates and displays a Patient on registration
-pom.xml              # Maven build file (JavaFX 17, Java 17)
-```
+### Requirements
 
-## Tech Stack
+- JDK 17
+- Apache Maven
 
-- Java (JDK 17+)
-- JavaFX 17 (`javafx-controls`)
-- Maven
-
-## How to Run
-
-**Requirements:** JDK 17 or newer and Maven.
-
-**From the command line**
+### Run the Application
 
 ```bash
-git clone https://github.com/MAQ030/COMP3220-Clinic-Booking-System.git
+git clone --branch main https://github.com/MAQ030/COMP3220-Clinic-Booking-System.git
 cd COMP3220-Clinic-Booking-System
 mvn javafx:run
 ```
 
-**From Eclipse**
+The application automatically creates a local `clinic.db` database. An internet connection may be required on the first run to download Maven dependencies.
 
-1. Clone the repository, then choose *File > Import > Maven > Existing Maven Projects* and select the project folder.
-2. Right-click the project, then *Run As > Maven build...*, enter the goal `javafx:run`, and click Run.
+## Project Structure
 
-## How to Use
+```text
+src/main/java/clinic/
+├── database/     # Database initialization
+├── domain/       # Domain entities
+├── repository/   # Data access
+├── service/      # Business logic
+└── ui/           # JavaFX interfaces
+```
 
-1. Enter the patient's name and phone number.
-2. Click **Register Patient**.
-3. The patient's ID, name, and phone number appear below the button.
+The application uses a layered architecture to separate user interaction, business logic, domain modelling, and data persistence.
 
-## AI Usage
+## Technologies
 
-AI tools were used for parts of this project. See the AI usage log in the Deliverable 1 report and the disclosure comments at the top of each source file.
+- Java 17
+- JavaFX
+- SQLite and JDBC
+- Maven
+- Visual Paradigm
 
-## Repository Notes
+## Project Development
 
-Compiled output and IDE files (`bin/`, `target/`, `.classpath`, `.project`, `.settings/`) are excluded through `.gitignore`.
+The system was developed across three project deliverables:
+
+- **D1:** Initial patient registration prototype.
+- **D2:** Problem-domain analysis and implementation revision.
+- **D3:** Software design and implementation of the clinic booking system.
+
+Detailed design decisions, UML models, and implementation comparisons are covered in the project report.
+
+## Repository
+
+[COMP3220 Clinic Appointment Booking System](https://github.com/MAQ030/COMP3220-Clinic-Booking-System)
