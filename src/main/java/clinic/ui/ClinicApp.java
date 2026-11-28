@@ -1,67 +1,84 @@
-// We used ChatGPT to help with ClinicApp.java.
-// The code was reviewed, tested, and we understood it before submission.
+// This code was developed with assistance from AI.
+// Review, test, and understand the code before submission.
 
 package clinic.ui;
 
-import clinic.domain.Patient;
+import clinic.database.DatabaseManager;
+import clinic.repository.*;
+import clinic.service.*;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ClinicApp extends Application {
 
-    private int nextPatientId = 1001;
-
     @Override
     public void start(Stage stage) {
 
-        TextField nameField = new TextField();
-        TextField phoneField = new TextField();
+        // Initialize the database
+        DatabaseManager databaseManager =
+                new DatabaseManager("jdbc:sqlite:clinic.db");
 
-        Button registerButton = new Button("Register Patient");
+        databaseManager.initializeDatabase();
 
-        Label patientDisplay = new Label("No patient registered yet.");
+        // Create repositories
+        PatientRepository patientRepository =
+                new SQLitePatientRepository(databaseManager);
 
-        registerButton.setOnAction(event -> {
+        DoctorRepository doctorRepository =
+                new SQLiteDoctorRepository(databaseManager);
 
-            String name = nameField.getText().trim();
-            String phone = phoneField.getText().trim();
+        TimeSlotRepository timeSlotRepository =
+                new SQLiteTimeSlotRepository(databaseManager);
 
-            // make sure both fields are filled in
-            if (name.isEmpty() || phone.isEmpty()) {
-                patientDisplay.setText("Please enter both a name and phone number.");
-                return;
-            }
+        AppointmentRepository appointmentRepository =
+                new SQLiteAppointmentRepository(databaseManager);
 
-            Patient patient = new Patient(nextPatientId, name, phone);
+        // Create services
+        PatientService patientService =
+                new PatientService(patientRepository);
 
-            nextPatientId++;
+        DoctorService doctorService =
+                new DoctorService(doctorRepository, timeSlotRepository);
 
-            patientDisplay.setText(
-                    "Patient ID: " + patient.getPatientId()
-                    + "\nName: " + patient.getName()
-                    + "\nPhone: " + patient.getPhone()
-            );
+        AppointmentService appointmentService =
+                new AppointmentService(appointmentRepository,
+                        patientRepository, timeSlotRepository);
 
-            // clear fields after successful registration
-            nameField.clear();
-            phoneField.clear();
-        });
+        // Create views
+        PatientView patientView =
+                new PatientView(patientService, doctorService,
+                        appointmentService);
+
+        DoctorView doctorView =
+                new DoctorView(doctorService, appointmentService);
+
+        ReceptionistView receptionistView =
+                new ReceptionistView(patientService, doctorService,
+                        appointmentService);
+
+        // Create main menu
+        Button patientButton = new Button("Patient");
+        Button doctorButton = new Button("Doctor");
+        Button receptionistButton = new Button("Receptionist");
+
+        patientButton.setOnAction(event -> patientView.show());
+        doctorButton.setOnAction(event -> doctorView.show());
+        receptionistButton.setOnAction(event -> receptionistView.show());
 
         VBox layout = new VBox(
                 10,
-                new Label("Register Patient"),
-                nameField,
-                phoneField,
-                registerButton,
-                patientDisplay
+                new Label("Select your role"),
+                patientButton,
+                doctorButton,
+                receptionistButton
         );
 
-        Scene scene = new Scene(layout, 400, 300);
+        Scene scene = new Scene(layout, 400, 250);
 
         stage.setTitle("Clinic Appointment Booking System");
         stage.setScene(scene);
